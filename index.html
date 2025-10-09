@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Robson Silva — Portfolio</title>
   <meta name="description" content="Robson Silva — Senior Software Developer. PHP, Laravel, Flutter, APIs. Open to remote opportunities." />
+  <!-- Tailwind via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    /* Glassmorphism + subtle animations */
     :root{
       --glass-bg: rgba(255,255,255,0.06);
       --glass-border: rgba(255,255,255,0.12);
@@ -18,6 +20,9 @@
     .accent-border{background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0)); border-left:4px solid transparent;}
     .btn-accent{background:var(--accent); background-size:200% 200%; transition:background-position .6s ease, transform .12s ease}
     .btn-accent:hover{transform:translateY(-3px); background-position:100% 0%}
+    .pulse {animation:pulse 3s infinite}
+    @keyframes float {0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+    .float-slow{animation:float 6s ease-in-out infinite}
   </style>
 </head>
 <body class="antialiased text-slate-100">
@@ -26,11 +31,11 @@
       <div class="h-12 w-12 rounded-xl bg-gradient-to-br from-purple-600 to-cyan-400 flex items-center justify-center text-white font-extrabold">RS</div>
       <div>
         <h1 class="text-xl font-semibold">Robson Silva</h1>
-        <p class="text-sm text-slate-300">Senior Software Developer</p>
+        <p id="job_title" class="text-sm text-slate-300">Desenvolvedor Sênior de Software</p>
       </div>
     </div>
     <div class="flex items-center gap-3">
-      <a href="Robson.pdf" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full btn-accent text-sm font-medium" id="btn-download">📄 Download CV</a>
+      <a href="Robson.pdf" id="download_cv_header" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full btn-accent text-sm font-medium">📄 Baixar CV</a>
       <a id="linkedin" href="https://www.linkedin.com/in/robson-silva-b8a93572/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-white/6 text-sm">LinkedIn</a>
       <div class="flex items-center gap-2 border rounded-full px-2 py-1 bg-white/3">
         <button id="btn-pt" class="text-xs font-medium">PT</button>
@@ -41,61 +46,108 @@
   </header>
 
   <main class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-8">
+    <!-- Left column: hero + contact -->
     <section class="md:col-span-2">
       <div class="glass-strong p-8 rounded-2xl drop-shadow-lg">
         <div class="flex items-start gap-8">
           <div class="flex-1">
             <h2 id="hero_title" class="text-4xl font-extrabold leading-tight">Olá, eu sou Robson</h2>
             <p id="hero_sub" class="mt-4 text-slate-200 max-w-2xl text-justify">
-              Desenvolvedor de sistemas com mais de 11 anos de experiência na Universidade Federal do Pará (UFPA), atuando no desenvolvimento de soluções digitais voltadas à assistência estudantil e gestão institucional. Graduado em Sistemas de Informação (UFPA) e pós-graduado em Desenvolvimento de Sistemas com Java e PHP. Tenho perfil analítico e foco em transformar demandas complexas em soluções simples e eficientes.
-            </p>
+              Desenvolvedor de sistemas com mais de 11 anos de experiência na Universidade Federal do Pará (UFPA), atuando no desenvolvimento de soluções digitais voltadas à assistência estudantil, extensão universitária e gestão institucional. Graduado em Sistemas de Informação (UFPA) e pós-graduado em Desenvolvimento de Sistemas com Java e PHP, tenho atuação sólida na criação de sistemas web que otimizam processos e impactam diretamente milhares de usuários. Tenho perfil analítico, foco em soluções práticas e gosto de transformar demandas complexas em ferramentas simples, úteis e eficientes. Sempre aberto a colaborações em projetos com impacto social, educacional e institucional.</p>
+
             <div class="mt-6 flex gap-3">
-              <a href="#projects" class="inline-flex items-center gap-2 px-4 py-2 rounded-full btn-accent text-sm" id="btn-projects">Ver projetos</a>
-              <a href="#contact" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/8 text-sm" id="btn-contact">Entrar em contato</a>
+              <a href="#projects" id="view_projects" class="inline-flex items-center gap-2 px-4 py-2 rounded-full btn-accent text-sm">Ver projetos</a>
+              <a href="#contact" id="contact_me" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/8 text-sm">Entrar em contato</a>
+            </div>
+
+            <div class="mt-8 grid grid-cols-3 gap-3">
+              <div class="accent-border p-4 rounded-lg glass text-sm">
+                <div id="experience_label" class="text-xs text-white/60">Experiência</div>
+                <div class="mt-1 font-semibold">11+ anos</div>
+                <div id="experience_detail" class="text-xs text-white/60">UFPA & sistemas institucionais</div>
+              </div>
+              <div class="accent-border p-4 rounded-lg glass text-sm">
+                <div id="stack_label" class="text-xs text-white/60">Stack Principal</div>
+                <div class="mt-1 font-semibold">PHP · Laravel</div>
+                <div id="stack_detail" class="text-xs text-white/60">APIs · MySQL</div>
+              </div>
+              <div class="accent-border p-4 rounded-lg glass text-sm">
+                <div id="mobile_label" class="text-xs text-white/60">Mobile</div>
+                <div class="mt-1 font-semibold">Flutter</div>
+                <div id="mobile_detail" class="text-xs text-white/60">Push · Integrações</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- Projects grid -->
       <section id="projects" class="mt-8 grid md:grid-cols-2 gap-6">
-        <article class="glass p-6 rounded-xl border border-white/6">
+        <article class="glass p-6 rounded-xl border border-white/6 hover:scale-[1.01] transition">
           <div class="flex items-start gap-4">
-            <img src="sigaest.jpg" alt="SIGAEST" class="w-20 h-20 rounded-md object-cover shadow-md"/>
+            <img src="sigaest.png" alt="SIGAEST" class="w-20 h-20 rounded-md object-cover shadow-md"/>
             <div>
               <h3 class="text-xl font-semibold">SIGAEST</h3>
-              <p class="text-sm text-slate-300 mt-1" id="sigaest_desc">Sistema de Gestão de Assistência Estudantil — desenvolvido em PHP, Laravel e MySQL com autenticação JWT e notificações FCM.</p>
+              <p id="sigaest_desc" class="text-sm text-slate-300 mt-1">Trabalho solo - Sistema Gerencial da Assistência Estudantil — desenvolvido com PHP, MySQL, Bootstrap (foco em responsividade e acessibilidade) e APIs personalizadas. Gerencia grande base de usuários, envolvendo milhares de alunos e servidores.</p>
+              <div class="mt-3 flex gap-2 text-xs text-slate-300">
+                <span class="px-2 py-1 border rounded">PHP</span>
+                <span class="px-2 py-1 border rounded">MySQL</span>
+                <span class="px-2 py-1 border rounded">Bootstrap</span>
+              </div>
             </div>
           </div>
         </article>
 
-        <article class="glass p-6 rounded-xl border border-white/6">
+        <article class="glass p-6 rounded-xl border border-white/6 hover:scale-[1.01] transition">
           <div class="flex items-start gap-4">
-            <img src="proaes.jpg" alt="PROAES" class="w-20 h-20 rounded-md object-cover shadow-md"/>
+            <img src="proaes.png" alt="PROAES" class="w-20 h-20 rounded-md object-cover shadow-md"/>
             <div>
               <h3 class="text-xl font-semibold">PROAES</h3>
-              <p class="text-sm text-slate-300 mt-1" id="proaes_desc">Portais institucionais e aplicativos com Flutter e APIs Laravel — foco em acessibilidade e desempenho.</p>
+              <p id="proaes_desc" class="text-sm text-slate-300 mt-1">Trabalho solo - Portais institucionais e apps — sites responsivos com Bootstrap e apps nativos Flutter conectados a APIs Laravel.</p>
+              <div class="mt-3 flex gap-2 text-xs text-slate-300">
+                <span class="px-2 py-1 border rounded">PHP</span>
+                <span class="px-2 py-1 border rounded">Bootstrap</span>
+                <span class="px-2 py-1 border rounded">MySQL</span>
+                <span class="px-2 py-1 border rounded">Laravel API</span>
+                <span class="px-2 py-1 border rounded">Flutter</span>
+              </div>
             </div>
           </div>
         </article>
       </section>
+
+      <div class="mt-8 glass p-6 rounded-xl border border-white/6">
+        <h4 id="case_highlights" class="font-semibold">Destaques dos casos</h4>
+        <ul class="mt-3 list-disc list-inside text-slate-300 text-sm space-y-2">
+          <li id="case1">Trabalho solo - SIGAEST: arquitetura própria, design acessível, otimização MySQL.</li>
+          <li id="case2">Trabalho solo - Portais PROAES: design acessível, e notificações FCM.</li>
+        </ul>
+      </div>
     </section>
 
+    <!-- Right column: contact + skills -->
     <aside class="space-y-6">
-      <div class="glass p-6 rounded-xl border border-white/6">
-        <h4 class="font-semibold" id="contact_title">Contato</h4>
-        <p class="text-slate-300 mt-2 text-sm">Telefone: <b>(91) 98217-1070</b></p>
+      <div id="contact" class="glass p-6 rounded-xl border border-white/6">
+        <h4 id="contact_title" class="font-semibold">Contato</h4>
+        <p id="phone_label" class="text-slate-300 mt-2 text-sm">Telefone: <b class="text-white">(91) 982171070</b></p>
         <p class="text-slate-300 mt-1 text-sm">Email: <a href="mailto:rsantsil@gmail.com" class="text-cyan-200">rsantsil@gmail.com</a></p>
+        <a href="/robson.pdf" id="download_cv_sidebar" class="mt-4 inline-block w-full text-center px-3 py-2 rounded-md btn-accent">📄 Baixar CV</a>
       </div>
+
       <div class="glass p-6 rounded-xl border border-white/6">
-        <h4 class="font-semibold">Skills</h4>
+        <h4 id="skills_title" class="font-semibold">Habilidades</h4>
         <div class="mt-3 flex flex-wrap gap-2">
           <span class="px-3 py-1 bg-white/6 rounded-full text-xs">PHP</span>
           <span class="px-3 py-1 bg-white/6 rounded-full text-xs">Laravel</span>
-          <span class="px-3 py-1 bg-white/6 rounded-full text-xs">Flutter</span>
           <span class="px-3 py-1 bg-white/6 rounded-full text-xs">MySQL</span>
           <span class="px-3 py-1 bg-white/6 rounded-full text-xs">APIs</span>
-          <span class="px-3 py-1 bg-white/6 rounded-full text-xs">AWS</span>
+          <span class="px-3 py-1 bg-white/6 rounded-full text-xs">Flutter</span>
         </div>
+      </div>
+
+      <div class="glass p-6 rounded-xl border border-white/6 text-sm">
+        <h4 id="availability_title" class="font-semibold">Disponibilidade</h4>
+        <p id="availability_desc" class="text-slate-300 mt-2">Aberto para posições sênior remotas. Fuso horário flexível para entrevistas.</p>
       </div>
     </aside>
   </main>
@@ -105,43 +157,82 @@
   <script>
     const translations = {
       pt: {
+        job_title: 'Desenvolvedor Sênior de Software',
         hero_title: 'Olá, eu sou Robson',
-        hero_sub: 'Desenvolvedor de sistemas com mais de 11 anos de experiência, especializado em PHP (Laravel), APIs e Flutter.',
-        btn_projects: 'Ver projetos',
-        btn_contact: 'Entrar em contato',
-        btn_download: '📄 Baixar Currículo',
-        sigaest_desc: 'Sistema de Gestão de Assistência Estudantil — desenvolvido em PHP, Laravel e MySQL com autenticação JWT e notificações FCM.',
-        proaes_desc: 'Portais institucionais e aplicativos com Flutter e APIs Laravel — foco em acessibilidade e desempenho.',
-        contact_title: 'Contato'
+        hero_sub: 'Desenvolvedor de sistemas com mais de 11 anos de experiência na Universidade Federal do Pará (UFPA), atuando no desenvolvimento de soluções digitais voltadas à assistência estudantil, extensão universitária e gestão institucional. Graduado em Sistemas de Informação (UFPA) e pós-graduado em Desenvolvimento de Sistemas com Java e PHP, tenho atuação sólida na criação de sistemas web que otimizam processos e impactam diretamente milhares de usuários. Tenho perfil analítico, foco em soluções práticas e gosto de transformar demandas complexas em ferramentas simples, úteis e eficientes. Sempre aberto a colaborações em projetos com impacto social, educacional e institucional.',
+        view_projects: 'Ver projetos',
+        contact_me: 'Entrar em contato',
+        experience_label: 'Experiência',
+        experience_detail: 'UFPA & sistemas institucionais',
+        stack_label: 'Stack Principal',
+        stack_detail: 'APIs · MySQL',
+        mobile_label: 'Mobile',
+        mobile_detail: 'Push · Integrações',
+        case_highlights: 'Destaques dos casos',
+        case1: 'Trabalho solo - SIGAEST: arquitetura própria, design acessível, otimização MySQL.',
+        case2: 'Trabalho solo - Portais PROAES: design acessível, e notificações FCM.',
+        contact_title: 'Contato',
+        phone_label: 'Telefone:',
+        skills_title: 'Habilidades',
+        availability_title: 'Disponibilidade',
+        availability_desc: 'Aberto para posições sênior remotas. Fuso horário flexível para entrevistas.',
+        download_cv: 'Baixar CV',
+        sigaest_desc: 'Trabalho solo - Sistema Gerencial da Assistência Estudantil — desenvolvido com PHP, MySQL, Bootstrap (foco em responsividade e acessibilidade) e APIs personalizadas. Gerencia grande base de usuários, envolvendo milhares de alunos e servidores.',
+        proaes_desc: 'Trabalho solo - Portais institucionais e apps — sites responsivos com Bootstrap e apps nativos Flutter conectados a APIs Laravel.'
       },
       en: {
+        job_title: 'Senior Software Developer',
         hero_title: "Hi, I'm Robson",
-        hero_sub: 'System developer with over 11 years of experience, specialized in PHP (Laravel), APIs and Flutter.',
-        btn_projects: 'View Projects',
-        btn_contact: 'Contact Me',
-        btn_download: '📄 Download CV',
-        sigaest_desc: 'Student Assistance Management System — built with PHP, Laravel and MySQL with JWT auth and FCM notifications.',
-        proaes_desc: 'Institutional portals and Flutter apps with Laravel APIs — focused on accessibility and performance.',
-        contact_title: 'Contact'
+        hero_sub: 'Software developer with over 11 years of experience at the Federal University of Pará (UFPA), working on digital solutions for student assistance, university extension, and institutional management. Graduated in Information Systems (UFPA) and post-graduated in System Development with Java and PHP, I have solid experience in creating web systems that optimize processes and directly impact thousands of users. I have an analytical profile, focus on practical solutions, and enjoy transforming complex demands into simple, useful, and efficient tools. Always open to collaborations in projects with social, educational, and institutional impact.',
+        view_projects: 'View projects',
+        contact_me: 'Contact me',
+        experience_label: 'Experience',
+        experience_detail: 'UFPA & institutional systems',
+        stack_label: 'Main Stack',
+        stack_detail: 'APIs · MySQL',
+        mobile_label: 'Mobile',
+        mobile_detail: 'Push · Integrations',
+        case_highlights: 'Case highlights',
+        case1: 'Solo work - SIGAEST: custom architecture, accessible design, MySQL optimization.',
+        case2: 'Solo work - PROAES portals: accessible design, and FCM notifications.',
+        contact_title: 'Contact',
+        phone_label: 'Phone:',
+        skills_title: 'Skills',
+        availability_title: 'Availability',
+        availability_desc: 'Open to remote senior roles. Flexible timezone for interviews.',
+        download_cv: 'Download CV',
+        sigaest_desc: 'Solo work - Student Assistance Management System — developed with PHP, MySQL, Bootstrap (focus on responsiveness and accessibility) and custom APIs. Manages large user base, involving thousands of students and staff.',
+        proaes_desc: 'Solo work - Institutional portals and apps — responsive sites with Bootstrap and native Flutter apps connected to Laravel APIs.'
       }
     };
 
     function setLang(lang){
-      const t = translations[lang];
-      document.getElementById('hero_title').textContent = t.hero_title;
-      document.getElementById('hero_sub').textContent = t.hero_sub;
-      document.getElementById('btn-projects').textContent = t.btn_projects;
-      document.getElementById('btn-contact').textContent = t.btn_contact;
-      document.getElementById('btn-download').textContent = t.btn_download;
-      document.getElementById('sigaest_desc').textContent = t.sigaest_desc;
-      document.getElementById('proaes_desc').textContent = t.proaes_desc;
-      document.getElementById('contact_title').textContent = t.contact_title;
-      localStorage.setItem('lang', lang);
+      const langMap = translations[lang] || translations.pt;
+      
+      // Update all elements with IDs
+      Object.keys(langMap).forEach(key => {
+        const element = document.getElementById(key);
+        if (element) {
+          element.textContent = langMap[key];
+        }
+      });
+      
+      // Update download CV buttons
+      document.querySelectorAll('.btn-accent').forEach(b => {
+        if (b.textContent.includes('Baixar') || b.textContent.includes('Download')) {
+          b.textContent = '📄 ' + langMap.download_cv;
+        }
+      });
+      
+      // Store preference
+      localStorage.setItem('site_lang', lang);
     }
 
     document.getElementById('btn-pt').addEventListener('click', ()=> setLang('pt'));
     document.getElementById('btn-en').addEventListener('click', ()=> setLang('en'));
-    const saved = localStorage.getItem('lang') || (navigator.language.startsWith('en') ? 'en' : 'pt');
+    
+    // Set initial language
+    const saved = localStorage.getItem('site_lang') || (navigator.language && navigator.language.startsWith('en') ? 'en' : 'pt');
     setLang(saved);
   </script>
 </body>
