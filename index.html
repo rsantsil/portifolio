@@ -28,12 +28,19 @@
 <body class="antialiased text-slate-100">
   <header class="max-w-6xl mx-auto px-6 pt-8 flex items-center justify-between">
     <div class="flex items-center gap-4">
-      <div class="h-12 w-12 rounded-xl bg-gradient-to-br from-purple-600 to-cyan-400 flex items-center justify-center text-white font-extrabold">RS</div>
-      <div>
-        <h1 class="text-xl font-semibold">Robson Silva</h1>
-        <p id="job_title" class="text-sm text-slate-300">Desenvolvedor Sênior de Software</p>
-      </div>
-    </div>
+  <div class="h-16 w-16 rounded-xl overflow-hidden flex-shrink-0">
+    <img 
+      src="fotorosto.jpeg" 
+      alt="Robson Silva" 
+      class="w-full h-full object-cover"
+      onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\"h-16 w-16 rounded-xl bg-gradient-to-br from-purple-600 to-cyan-400 flex items-center justify-center text-white font-extrabold\">RS</div>'"
+    />
+  </div>
+  <div>
+    <h1 class="text-xl font-semibold">Robson Silva</h1>
+    <p id="job_title" class="text-sm text-slate-300">Desenvolvedor Sênior de Software</p>
+  </div>
+</div>
     <div class="flex items-center gap-3">
       <a href="robson.pdf" target="_blank" id="download_cv_header" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full btn-accent text-sm font-medium">📄 Baixar CV</a>
       <a id="linkedin" href="https://www.linkedin.com/in/robson-silva-b8a93572/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-white/6 text-sm">LinkedIn</a>
